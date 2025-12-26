@@ -1,12 +1,14 @@
-import { Download, FileText } from 'lucide-react';
+import { Download, FileText } from "lucide-react";
 
 const Resume = () => {
-  const resumePath = '/new_resume.pdf';
+  const resumePath = "/new_Resume.pdf";
 
   return (
     <section id="resume" className="py-20 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">Resume</h2>
+        <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">
+          Resume
+        </h2>
         <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
           View or download my complete resume
         </p>
