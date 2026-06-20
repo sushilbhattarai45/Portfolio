@@ -1,4 +1,4 @@
-import { personalInfo, skills } from "../data/portfolioData";
+import { personalInfo } from "../data/portfolioData";
 import { GraduationCap, MapPin } from "lucide-react";
 
 const About = () => {
@@ -15,6 +15,10 @@ const About = () => {
             </h1>
             <p className="text-xl md:text-2xl text-blue-600 font-semibold mb-6">
               {personalInfo.title}
+            </p>
+
+            <p className="mb-6 text-sm font-medium uppercase tracking-[0.2em] text-slate-500">
+              National-level hackathon winner
             </p>
 
             <div className="mb-6 space-y-2">
@@ -72,26 +76,6 @@ const About = () => {
           </div>
         </div>
 
-        {/* <div className="mt-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Technical Skills</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {skills.map((skillGroup) => (
-              <div key={skillGroup.category} className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">{skillGroup.category}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {skillGroup.items.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </div>
     </section>
   );

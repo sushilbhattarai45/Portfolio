@@ -2,26 +2,37 @@ import { Project, Experience, Skill } from "../types/portfolio";
 
 export const projects: Project[] = [
   {
-    title: "E-Med Nepal",
+    title: "Ehulak.tech",
     description:
-      "Full-stack centralized medical record platform enabling secure access to patient history across hospitals with scannable digital health card system.",
-    techStack: ["JavaScript", "React", "Node.js", "MongoDB"],
-    liveLink: "https://e-med-nepal.vercel.app",
-    badge: "National Hackathon Winner",
+      "API-first distributed email delivery platform with a reliable queue-to-worker-to-inbox pipeline, SMTP connection pooling, rate limiting, retries, DLQ recovery, and real-time lifecycle tracking.",
+    techStack: [
+      "AWS EC2",
+      "Node.js",
+      "Kafka",
+      "Redis",
+      "BullMQ",
+      "Docker",
+      "Nginx",
+      "MongoDB",
+      "SMTP",
+    ],
+    liveLink: "https://ehulak.tech",
   },
   {
-    title: "SoulLog",
+    title: "PassMyFiles.com",
     description:
-      "AI-powered journaling platform that analyzes emotional patterns and provides personalized mood-based music recommendations using Gemini AI.",
+      "Secure file-sharing platform for uploading large files, storing them in AWS S3, generating shareable links, and processing background tasks through Kafka and BullMQ workers.",
     techStack: [
-      "TypeScript",
-      "Next.js",
       "Node.js",
-      "MongoDB",
-      "Gemini AI",
+      "Kafka",
+      "Redis",
+      "BullMQ",
+      "AWS EC2",
+      "AWS S3",
       "Docker",
+      "Nginx",
     ],
-    liveLink: "https://soullog.vercel.app",
+    liveLink: "https://passmyfiles.com",
   },
   {
     title: "Ragat Nepal",
@@ -31,35 +42,18 @@ export const projects: Project[] = [
     liveLink:
       "https://play.google.com/store/apps/details?id=com.nepcode.ragatnepal",
   },
-  {
-    title: "Voice Pet",
-    description:
-      "Voice-controlled web application processing real-time audio input for AI-driven responses with secure storage.",
-    techStack: ["React", "Appwrite", "NLP API"],
-    liveLink: "https://voicepet.vercel.app",
-  },
 ];
 
 export const experiences: Experience[] = [
   {
-    role: "Software Engineer",
+    role: "Software Engineer Intern",
     organization: "Z1 Technologies (Z1 GPS)",
     location: "Bhairahawa, Nepal",
     duration: "Sep. 2023 – Jun. 2024",
     description: [
       "Developed a React Native mobile application using real-time data streaming via the Traccar API for continuous vehicle location updates.",
       "Implemented live map visualizations for streamed GPS coordinates, speed, distance, and route data.",
-      "Integrated Firebase Cloud Messaging (FCM) for push notifications and remote vehicle control features in a production system used by over 10,000 users.",
-    ],
-  },
-  {
-    role: "Undergraduate Researcher",
-    organization: "University of Southern Mississippi",
-    location: "Hattiesburg, MS, United States",
-    duration: "Sep. 2025 – Present",
-    description: [
-      "Developing a machine learning model to improve accuracy and consistency in clinical audiology assessments.",
-      "Building a Python-based speech recognition pipeline to automate and standardize clinical testing workflows.",
+      "Integrated Firebase Cloud Messaging (FCM) for push notifications and remote vehicle control features in a production system integrated with over 1,000 vehicles.",
     ],
   },
 ];
@@ -71,10 +65,8 @@ export const skills: Skill[] = [
       "JavaScript",
       "TypeScript",
       "Python",
-      "C/C++",
-      "SQL",
+      "SQL (MySQL)",
       "PHP",
-      "HTML/CSS",
     ],
   },
   {
@@ -86,11 +78,21 @@ export const skills: Skill[] = [
     items: [
       "Git",
       "Docker",
+      "Nginx",
+      "Kafka",
+      "Redis",
+      "BullMQ",
       "Firebase",
       "MongoDB",
-      "Google Cloud Platform",
-      "Appwrite",
     ],
+  },
+  {
+    category: "Deployment",
+    items: ["Amazon AWS EC2", "Digital Ocean Droplets", "Linode VPS"],
+  },
+  {
+    category: "Strong Interest",
+    items: ["Scalable Distributed System Development"],
   },
 ];
 
