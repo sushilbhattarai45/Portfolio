@@ -1,84 +1,119 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { scrollToId } from "../lib/scroll";
+
+const navItems = [
+  { label: "Intro", id: "about" },
+  { label: "Projects", id: "projects" },
+  { label: "Experience", id: "experience" },
+  { label: "Resume", id: "resume" },
+  { label: "Contact", id: "contact" },
+];
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [current, setCurrent] = useState("about");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const root = document.getElementById("scroller");
+    const nodes = root?.querySelectorAll<HTMLElement>("[data-nav]");
+    if (!root || !nodes?.length) return;
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const ratios = new Map<Element, { key: string; ratio: number }>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const key = (entry.target as HTMLElement).dataset.nav ?? "";
+          ratios.set(entry.target, {
+            key,
+            ratio: entry.isIntersecting ? entry.intersectionRatio : 0,
+          });
+        }
+
+        let bestKey = "";
+        let bestRatio = 0.4;
+        ratios.forEach(({ key, ratio }) => {
+          if (ratio > bestRatio) {
+            bestKey = key;
+            bestRatio = ratio;
+          }
+        });
+
+        if (bestKey) setCurrent(bestKey);
+      },
+      { root, threshold: [0.25, 0.5, 0.75] },
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
+  const go = (id: string) => {
+    scrollToId(id);
+    setIsOpen(false);
   };
 
-  const navItems = [
-    { label: "About", id: "about" },
-    { label: "Projects", id: "projects" },
-    { label: "Experience", id: "experience" },
-    { label: "Resume", id: "resume" },
-    { label: "Contact", id: "contact" },
-  ];
-
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => scrollToSection("about")}
-            className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors"
-          >
-            <img src="/image.png" alt="Logo" className="h-8 w-8" />
-          </button>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/75 backdrop-blur-xl">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
+        <button
+          type="button"
+          onClick={() => go("about")}
+          className="font-display text-2xl italic tracking-tight text-paper"
+        >
+          Sushil
+        </button>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+        <div className="hidden items-center gap-7 md:flex">
+          {navItems.map((item) => {
+            const active = current === item.id;
+            return (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
+                type="button"
+                onClick={() => go(item.id)}
+                className={`relative text-sm font-medium transition-colors ${
+                  active ? "text-limeglow" : "text-mute hover:text-paper"
+                }`}
+                aria-current={active ? "true" : undefined}
               >
                 {item.label}
+                <span
+                  className={`absolute -bottom-2 left-0 h-px bg-limeglow transition-all duration-300 ${
+                    active ? "w-full" : "w-0"
+                  }`}
+                />
               </button>
-            ))}
-          </div>
-
-          <button
-            className="md:hidden text-gray-800"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            );
+          })}
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-3">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="block w-full text-left text-gray-600 hover:text-blue-600 transition-colors font-medium py-2"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        )}
+        <button
+          type="button"
+          className="text-paper md:hidden"
+          onClick={() => setIsOpen((open) => !open)}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </nav>
+
+      {isOpen && (
+        <div className="border-t border-white/10 bg-ink px-5 py-4 md:hidden">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => go(item.id)}
+              className={`block w-full py-3 text-left text-lg ${
+                current === item.id ? "text-limeglow" : "text-paper"
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
     </header>
   );
 };

@@ -1,3 +1,211 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    background: #070708;
+    color: #f4f0e6;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: #d6ff4a;
+    color: #070708;
+  }
+
+  :focus-visible {
+    outline: 2px solid #d6ff4a;
+    outline-offset: 3px;
+  }
+}
+
+#scroller {
+  height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(244, 240, 230, 0.28) transparent;
+}
+
+#scroller::-webkit-scrollbar {
+  width: 8px;
+}
+
+#scroller::-webkit-scrollbar-thumb {
+  background: rgba(244, 240, 230, 0.28);
+  border-radius: 999px;
+}
+
+.panel {
+  position: relative;
+  height: 100dvh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  padding-top: 4.25rem;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(244, 240, 230, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 240, 230, 0.045) 1px, transparent 1px);
+  background-size: 76px 76px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 78%);
+}
+
+.orb {
+  position: absolute;
+  width: min(46vw, 520px);
+  height: min(46vw, 520px);
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.28;
+  animation: float 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.intro-char {
+  display: inline-block;
+  animation: char-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.intro-item {
+  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.draw-line {
+  transform-origin: left center;
+  animation: draw 1s 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.js .panel .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.js .panel.is-active .reveal {
+  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.js .panel .watermark {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+.js .panel.is-active .watermark {
+  animation: watermark-in 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.scroll-cue {
+  animation: bob 1.6s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes char-rise {
+  from {
+    opacity: 0;
+    transform: translateY(110%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-6%, 8%, 0) scale(1.08);
+  }
+}
+
+@keyframes watermark-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.orbit-spin {
+  animation: orbit-spin linear infinite;
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+@media (max-height: 760px) {
+  .panel-copy {
+    transform: scale(0.92);
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-char,
+  .intro-item,
+  .draw-line,
+  .orb,
+  .scroll-cue,
+  .orbit-spin,
+  .js .panel.is-active .reveal,
+  .js .panel.is-active .watermark {
+    animation: none !important;
+  }
+
+  .js .panel .reveal,
+  .js .panel .watermark,
+  .intro-char,
+  .intro-item,
+  .draw-line {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -4,7 +4,7 @@ export const projects: Project[] = [
   {
     title: "Ehulak.tech",
     description:
-      "API-first distributed email delivery platform with a reliable queue-to-worker-to-inbox pipeline, SMTP connection pooling, rate limiting, retries, DLQ recovery, and real-time lifecycle tracking.",
+      "Built an API-first email delivery platform that enables applications to send and track emails through a reliable queue → worker → inbox processing pipeline.",
     techStack: [
       "AWS EC2",
       "Node.js",
@@ -21,7 +21,7 @@ export const projects: Project[] = [
   {
     title: "PassMyFiles.com",
     description:
-      "Secure file-sharing platform for uploading large files, storing them in AWS S3, generating shareable links, and processing background tasks through Kafka and BullMQ workers.",
+      "Built a secure file-sharing platform enabling users to upload, store, and generate shareable links for large files.",
     techStack: [
       "Node.js",
       "Kafka",
@@ -37,7 +37,7 @@ export const projects: Project[] = [
   {
     title: "Ragat Nepal",
     description:
-      "Real-time blood donor matching platform for emergency response with location-based matching. Currently used by over 3000 users with 6000+ downloads.",
+      "Built a real-time blood donor matching platform for emergency response scenarios used by over 3,000 users with 1,000+ Google Play downloads.",
     techStack: ["React Native", "PHP", "MySQL", "Expo"],
     liveLink:
       "https://play.google.com/store/apps/details?id=com.nepcode.ragatnepal",
@@ -98,13 +98,13 @@ export const skills: Skill[] = [
 
 export const personalInfo = {
   name: "Sushil Bhattarai",
-  title: "Computer Engineering Student",
-  bio: "A passionate Computer Engineering student at the University of Southern Mississippi with a 4.0 GPA. I specialize in building full-stack applications, mobile apps, and AI-powered solutions. Winner of a national-level hackathon and experienced in developing production systems used by thousands of users.",
+  title: "Computer Science & Mathematics Student",
+  bio: "I study computer science and math at Southern Miss. Most of what I build is a queue, an API, or an app someone opens on their phone.",
   email: "sushilbhattarai2004@gmail.com",
   github: "https://github.com/sushilbhattarai45",
   linkedin: "https://linkedin.com/in/sushilbhattarai45",
   education: "University of Southern Mississippi",
-  degree: "Bachelor of Science in Computer Engineering",
+  degree: "Computer Science and Mathematics",
   gpa: "4.00",
   duration: "Aug. 2025 – Present",
 };
